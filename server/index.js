@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 
 app.use("/auth", require("./routes/auth"));
 app.use(require("./routes/group"));
+app.use("/", require("./routes/index"));
 
 app.listen(5000, () => {
   console.log("Sever running on port 5000");
