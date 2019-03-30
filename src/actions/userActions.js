@@ -19,10 +19,10 @@ export const logIn = account => async dispatch => {
     payload:data.data,
   })
 };
-
-export const logOut =() => async dispatch => {
-  dispatch({
-    type:LOGOUT,
-  })
-};
+//
+// export const logOut =() => async dispatch => {
+//   dispatch({
+//     type:LOGOUT,
+//   })
+// };
 

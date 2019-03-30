@@ -32,7 +32,7 @@ import {
 
 import NavDropdown from "reactstrap/es/NavDropdown";
 import {connect} from "react-redux";
-import {logOut} from "../actions/userActions";
+// import {logOut} from "../actions/userActions";
 
 class Header extends React.Component {
   constructor(props) {
@@ -54,7 +54,7 @@ class Header extends React.Component {
   render() {
     return (
       <div>
-        {this.props.loggedIn===false && (
+        {this.props.loggedIn===false &&  (
           <Navbar
             dark
             style={{ background: "#1c1c1c" }}
@@ -85,7 +85,7 @@ class Header extends React.Component {
             </Collapse>
           </Navbar>
         )}
-        {this.props.loggedIn===true && (
+        {this.props.loggedIn===true && console.log(this.props) && (
           <Navbar
             dark
             style={{ background: "#1c1c1c" }}
@@ -135,7 +135,7 @@ class Header extends React.Component {
                       <a href="/editProfile"> Edit Profile</a>
                     </DropdownItem>
                     <DropdownItem>
-                      <a href="/login"> Logout</a>
+                      {/*<a href="/login"> Logout</a>*/}
                     </DropdownItem>
                   </DropdownMenu>
                 </AppHeaderDropdown>
@@ -154,5 +154,5 @@ const mapStateToProps = (p) => {
 
 export default connect(
   mapStateToProps,
-  {logOut}
+  null
 )(Header);
