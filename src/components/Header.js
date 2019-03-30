@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Navbar,
   Collapse,
@@ -7,16 +8,6 @@ import {
   Nav,
   NavItem,
   NavLink,
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Label,
-  Form,
-  FormGroup,
-  Input,
-  Badge,
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
@@ -31,7 +22,7 @@ import {
 } from "@coreui/react";
 
 import NavDropdown from "reactstrap/es/NavDropdown";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 // import {logOut} from "../actions/userActions";
 
 class Header extends React.Component {
@@ -41,7 +32,7 @@ class Header extends React.Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       isOpen: false,
-      left: false,
+      left: false
     };
   }
 
@@ -54,7 +45,7 @@ class Header extends React.Component {
   render() {
     return (
       <div>
-        {this.props.loggedIn===false &&  (
+        {this.props.loggedIn === false && (
           <Navbar
             dark
             style={{ background: "#1c1c1c" }}
@@ -70,7 +61,8 @@ class Header extends React.Component {
                 <NavItem
                   className="ml-auto text-black-50 font-weight-bold"
                   navbar
-                  style={{ fontSize: "25px" }}>
+                  style={{ fontSize: "25px" }}
+                >
                   <NavLink href="/login">Login</NavLink>
                 </NavItem>
                 {"  "}
@@ -85,7 +77,7 @@ class Header extends React.Component {
             </Collapse>
           </Navbar>
         )}
-        {this.props.loggedIn===true && console.log(this.props) && (
+        {this.props.loggedIn === true && (
           <Navbar
             dark
             style={{ background: "#1c1c1c" }}
@@ -103,16 +95,18 @@ class Header extends React.Component {
                 style={{ fontSize: "25px" }}
               >
                 <NavItem className="d-md-down-none">
-                  <NavLink href="/">Home</NavLink>
+                  <NavLink>
+                    <Link to="/" className="text-white">Home</Link>
+                  </NavLink>
                 </NavItem>
                 <AppHeaderDropdown direction="down">
                   <DropdownToggle nav>Groups</DropdownToggle>
                   <DropdownMenu down style={{ down: "auto" }}>
                     <DropdownItem>
-                      <a href="/newGroup"> Create A group</a>
+                      <Link to="/newGroup"> Create A group</Link>
                     </DropdownItem>
                     <DropdownItem>
-                      <a href="/profile">My Groups</a>
+                      <Link to="/profile">My Groups</Link>
                     </DropdownItem>
                   </DropdownMenu>
                 </AppHeaderDropdown>
@@ -148,11 +142,8 @@ class Header extends React.Component {
   }
 }
 
-const mapStateToProps = (p) => {
+const mapStateToProps = p => {
   return p.users;
 };
 
-export default connect(
-  mapStateToProps,
-  null
-)(Header);
+export default connect(mapStateToProps)(Header);
