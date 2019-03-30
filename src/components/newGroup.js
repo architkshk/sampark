@@ -5,6 +5,7 @@ import Label from "reactstrap/es/Label";
 import CardHeader from "reactstrap/es/CardHeader";
 import {connect} from "react-redux";
 import {addGroup } from "../actions/groupActions";
+import {Redirect} from "react-router-dom";
 
 class newGroup extends Component {
   constructor(props) {
@@ -31,6 +32,12 @@ class newGroup extends Component {
   }
 
 
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/' />
+    }
+  };
+
   handleSubmit = async e => {
     e.preventDefault();
     await this.props.addGroup({
@@ -41,15 +48,20 @@ class newGroup extends Component {
       state:this.state.state,
       diseases:this.state.diseases,
       interests:this.state.interests,
-      activity:this.state.activity,
+      address:this.state.address,
       description:this.state.description,
-    });
+      time:this.state.time,
+    },
+      this.props.users.token
+    );
     console.log(this.props.groups);
     this.setState({
       name:"",
       nationality:"",
-      ageFrom:"",
-      ageTo:"",
+      age:{
+        lesser:"",
+        greater:"",
+      },
       address:"",
       city:"",
       state:"",
@@ -101,8 +113,10 @@ class newGroup extends Component {
                           name="age"
                           onChange={event=>
                             this.setState({
-                              ageFrom:event.target.value
-                            })}
+                              age:{
+                                ...this.state.age,
+                                lesser:event.target.value
+                              }                            })}
                         />
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
@@ -114,8 +128,10 @@ class newGroup extends Component {
                           name="age"
                           onChange={event=>
                             this.setState({
-                              ageTo:event.target.value
-
+                              age:{
+                                ...this.state.age,
+                                greater:event.target.value
+                              }
                             })}
                         />
                       </InputGroup>
@@ -249,13 +265,15 @@ class newGroup extends Component {
             </Col>
           </Row>
         </Container>
+        {console.log(this.props.groups.groups)}
+        {this.renderRedirect()}
       </div>
     );
   }
 }
 
 const mapStateToProps = (p) => {
-  return p.group;
+  return p;
 };
 
 export default connect(

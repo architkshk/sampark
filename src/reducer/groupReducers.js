@@ -9,7 +9,7 @@ export default function(state=initialState, action) {
     case ADD_GROUP:
       return{
         ...state,
-        groups:state.groups.push(action.payload)
+        groups:[...state.groups,action.payload]
       };
     default:
       return state;
