@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@asymmetrik/akin": "^0.2.4",
     "@coreui/react": "^2.1.5",
     "axios": "^0.18.0",
     "bcrypt": "^3.0.5",

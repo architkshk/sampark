@@ -1,6 +1,7 @@
 var { Group } = require("../models/group");
 const _ = require("lodash");
 const { ObjectID } = require("mongodb");
+const akin = require("@asymmetrik/akin");
 
 module.exports = {
   createGroup: (req, res) => {
@@ -74,6 +75,7 @@ module.exports = {
       }
       group.members.push(req.user._id);
       group.save().then(async group => {
+        await akin.activity.log(req.user.id, group.id);
         res.send(group);
       });
     } catch (e) {
@@ -142,5 +144,12 @@ module.exports = {
       .catch(e => {
         res.status(400).send(e);
       });
+  },
+  recommend: async (req, res) => {
+    let b = await akin.run();
+    let a = await akin.recommendation.getAllRecommendationsForUser(
+      req.user._id
+    );
+    res.send(b);
   }
 };
