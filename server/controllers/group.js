@@ -18,8 +18,8 @@ module.exports = {
       "time"
     ]);
     body.createdBy = req.user._id;
+    body.members = [req.user._id];
     var group = new Group(body);
-
     group
       .save()
       .then(group => {
@@ -98,10 +98,7 @@ module.exports = {
       }
       group.members.pop(req.user._id);
       group.save().then(group => {
-        req.user.groups.pop(group._id);
-        req.user.save().then(user => {
-          res.send(user.groups);
-        });
+        res.send({ success: true });
       });
     } catch (e) {
       res.status(400).send(e);
@@ -109,18 +106,16 @@ module.exports = {
   },
 
   returnMyGroups: (req, res) => {
-    req.user.groups.forEach(memberId => {
-      if (!memberId) {
-        return res.status(404).send();
-      }
-      Group.findById(memberId)
-        .then(group => {
-          res.send({ group });
-        })
-        .catch(e => {
-          res.status(400).send(e);
+    Group.find()
+      .then(group => {
+        var isInArray = group.members.filter(function(user) {
+          return user.equals(req.user.id);
         });
-    });
+        res.send({ groups: isInArray });
+      })
+      .catch(e => {
+        res.status(400).send(e);
+      });
   },
 
   deleteGroup: (req, res) => {
@@ -133,12 +128,8 @@ module.exports = {
       .then(group => {
         if (!group) {
           return res.status(404).send();
-        } else if (group.createdBy.equals(req.user.id)) {
-          req.user.groups.pop(id);
-          req.user.save();
-          res.send(req.user.groups);
         } else {
-          return Promise.reject();
+          return res.send({ success: true });
         }
       })
       .catch(e => {
@@ -146,10 +137,13 @@ module.exports = {
       });
   },
   recommend: async (req, res) => {
-    let b = await akin.run();
-    let a = await akin.recommendation.getAllRecommendationsForUser(
+    let a = await akin.run();
+    let b = await akin.recommendation.getAllRecommendationsForUser(
       req.user._id
     );
     res.send(b);
+  },
+  filter: async (req, res) => {
+    Group.find(req.query).then(groups => res.send(groups));
   }
 };
