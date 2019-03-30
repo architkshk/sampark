@@ -20,7 +20,15 @@ export default (state = initialState , action) => {
       return{
         ...state,
         token: action.payload.token,
+        user:action.payload.user,
         loggedIn: true,
+      };
+    case LOGOUT:
+      return{
+        ...state,
+        token:"",
+        loggedIn:false,
+        user:[]
       };
     default:
       return state;

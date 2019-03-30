@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Button, Card, CardBody, CardFooter, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import{Signup} from "../actions/userActions";
 import { connect } from "react-redux";
+import {Redirect} from "react-router-dom";
+import axios from "axios";
 
 class signUp extends Component {
   constructor(props) {
@@ -10,42 +12,56 @@ class signUp extends Component {
       name:"",
       email:"",
       age:"",
-      contactNumber:"",
+      mobile:"",
       password:"",
       address:"",
       city:"",
       state:"",
       diseases:"",
       interests:"",
+      redirect: false,
+      cities:[],
+      states:[]
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    axios.get("")
+  }
+
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/' />
+    }
+  };
+
   handleSubmit = async e => {
     e.preventDefault();
-    await this.props.signUp({
+    await this.props.Signup({
       name: this.state.name,
       email: this.state.email,
       age: this.state.age,
-      contactNumber: this.state.contactNumber,
+      mobile: this.state.mobile,
       password: this.state.password,
       address:this.state.address,
       city:this.state.city,
       state:this.state.state,
-      diseases:this.state.disease,
+      diseases:this.state.diseases,
       interests:this.state.interests,
     });
     this.setState({
       name:"",
       email:"",
       age:"",
-      contactNumber:"",
+      mobile:"",
       password:"",
       address:"",
       city:"",
       state:"",
       diseases:"",
       interests:"",
+      redirect:true
     });
   };
 
@@ -87,7 +103,7 @@ class signUp extends Component {
                           this.setState({
                             email:event.target.value
                           })}
-                        required/>
+                        />
                     </InputGroup>
                     <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
@@ -95,11 +111,13 @@ class signUp extends Component {
                         </InputGroupText>
                       </InputGroupAddon>
                       <Input
-                        type="number"
-                        placeholder="contact number"
+                        type="tek"
+                        pattern="[0-9]{12}"
+                        maxLength="12"
+                        placeholder="Contact Number"
                         onChange={event=>
                           this.setState({
-                            contactNumber:event.target.value
+                            mobile:event.target.value
                           })}
                         required
                       />
@@ -142,7 +160,7 @@ class signUp extends Component {
                         </InputGroupAddon>
                         <Input
                           type="text"
-                          placeholder="address"
+                          placeholder="Address"
                           onChange={event=>
                             this.setState({
                               address:event.target.value
@@ -159,10 +177,10 @@ class signUp extends Component {
                             </InputGroupAddon>
                             <Input
                               type="text"
-                              placeholder="city"
+                              placeholder="State"
                               onChange={event=>
                                 this.setState({
-                                  city:event.target.value
+                                  state:event.target.value
                                 })}
                               required
                             />
@@ -176,10 +194,10 @@ class signUp extends Component {
                             </InputGroupAddon>
                             <Input
                               type="text"
-                              placeholder="state"
+                              placeholder="City"
                               onChange={event=>
                                 this.setState({
-                                  state:event.target.value
+                                  city:event.target.value
                                 })}
                               required
                             />
@@ -193,7 +211,7 @@ class signUp extends Component {
                         </InputGroupAddon>
                         <Input
                           type="text"
-                          placeholder="diseases"
+                          placeholder="Diseases"
                           onChange={event=>
                             this.setState({
                               diseases:event.target.value
@@ -208,7 +226,7 @@ class signUp extends Component {
                           </InputGroupAddon>
                           <Input
                             type="text"
-                            placeholder="interests"
+                            placeholder="Interests"
                             onChange={event=>
                               this.setState({
                                 interests:event.target.value
@@ -227,6 +245,7 @@ class signUp extends Component {
             </Col>
           </Row>
         </Container>
+        {this.renderRedirect()}
       </div>
     );
   }

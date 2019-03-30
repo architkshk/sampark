@@ -2,28 +2,34 @@ import React, { Component } from 'react';
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import {connect} from "react-redux";
 import {logIn} from "../actions/userActions";
+import {Redirect} from "react-router-dom";
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email:"",
-      contactNumber:"",
+      mobile:"",
       password:"",
+      redirect:false
     };
   }
+
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/' />
+    }
+  };
 
   handleSubmit = async e => {
     e.preventDefault();
     await this.props.logIn({
-      email: this.state.email,
-      contactNumber: this.state.contactNumber,
+      mobile: this.state.mobile,
       password: this.state.password,
     });
     this.setState({
-      email:"",
-      contactNumber:"",
+      mobile:"",
       password:"",
+      redirect:true
     });
   };
 
@@ -46,29 +52,16 @@ class Login extends Component {
                     <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
-                          @
                         </InputGroupText>
                       </InputGroupAddon>
                       <Input
-                        type="email"
-                        placeholder="email"
-                        onChange={event=>
-                          this.setState({
-                            email:event.target.value
-                          })}
-                        required />
-                    </InputGroup>
-                    <InputGroup className="mb-3">
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input
-                        type="number"
+                        pattern="[0-9]{10}"
+                        maxLength="12"
+                        type="tel"
                         placeholder="Contact Number"
                         onChange={event=>
                           this.setState({
-                            contactNumber:event.target.value
+                            mobile:event.target.value
                           })}
                         required />
                     </InputGroup>
@@ -102,6 +95,7 @@ class Login extends Component {
             </Col>
           </Row>
         </Container>
+        {this.renderRedirect()}
       </div>
     );
   }
