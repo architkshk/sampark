@@ -33,7 +33,7 @@ module.exports = {
     try {
       let groups = await Group.find();
       console.log("here");
-      if (!group) {
+      if (!groups) {
         return res.send({ groups: [] });
       }
       res.send({ groups });
