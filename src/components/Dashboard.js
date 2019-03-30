@@ -15,6 +15,7 @@ import {
   Form
 } from "reactstrap";
 import {connect} from "react-redux";
+import  {Link} from "react-router-dom";
 
 const notificationList = [
   {
@@ -187,7 +188,7 @@ class Dashboard extends Component {
                   className="groupsCard"
                   style={{ padding: "2px", marginBottom: "30px" }}
                 >
-                  <a href="./group">
+                  <Link to="./group">
                     <CardBody
                       className="font-weight-bolder text-center text-dark "
                       style={{
@@ -199,7 +200,7 @@ class Dashboard extends Component {
                       <div>{group.time}</div>
                       <div>{group.location}</div>
                     </CardBody>
-                  </a>
+                  </Link>
                   <CardFooter>
                     <Button block color="success" round>
                       Join Group

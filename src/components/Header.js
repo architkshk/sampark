@@ -96,7 +96,7 @@ class Header extends React.Component {
               >
                 <NavItem className="d-md-down-none">
                   <NavLink>
-                    <Link to="/" className="text-white">Home</Link>
+                    <Link to="/" >Home</Link>
                   </NavLink>
                 </NavItem>
                 <AppHeaderDropdown direction="down">
@@ -114,22 +114,20 @@ class Header extends React.Component {
                   <DropdownToggle nav>
                     Profile &nbsp;
                     <img
-                      src="http://www.petsworld.in/blog/wp-content/uploads/2014/09/cute-kittens.jpg"
+                      src="http://www.pe tsworld.in/blog/wp-content/uploads/2014/09/cute-kittens.jpg"
                       className="rounded-circle"
                       style={{ height: "40px", width: "40px" }}
                     />
                   </DropdownToggle>
                   <DropdownMenu down style={{ down: "auto" }}>
                     <DropdownItem>
-                      {" "}
-                      <a href="/profile"> My Profile</a>
+                      <Link to="/profile"> My Profile</Link>
                     </DropdownItem>
                     <DropdownItem>
-                      {" "}
-                      <a href="/editProfile"> Edit Profile</a>
+                      <Link to="/editProfile"> Edit Profile</Link>
                     </DropdownItem>
                     <DropdownItem>
-                      {/*<a href="/login"> Logout</a>*/}
+                      <Link to="/login"> Logout</Link>
                     </DropdownItem>
                   </DropdownMenu>
                 </AppHeaderDropdown>
