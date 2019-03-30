@@ -67,7 +67,7 @@ class Header extends React.Component {
                 navbar
                 style={{ fontSize: "25px" }}
               >
-                <NavLink href="/signUp">SignUp</NavLink>
+                <NavLink href="/signup">SignUp</NavLink>
               </NavItem>
             </Nav>
           </Collapse>
