@@ -95,7 +95,7 @@ class Dashboard extends Component {
         className="animated fadeIn "
         style={{ marginLeft: "15%", marginRight: "15%", marginTop: "2%" }}
       >
-        <h1 className="font-weight-bold mb-4">Hello Mr. {this.props.user.name}!!</h1>
+        <h1 className="font-weight-bold mb-4">Hello {this.props.user.name}!!</h1>
         <Row>
           <Col>
             <Card outline style={{ padding: "2px", marginBottom: "30px" }}>
