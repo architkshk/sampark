@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Card, CardBody, CardFooter, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
-
+import{Signup} from "../actions/userActions";
+import { connect } from "react-redux";
 
 class signUp extends Component {
   constructor(props) {
@@ -22,7 +23,30 @@ class signUp extends Component {
 
   handleSubmit = async e => {
     e.preventDefault();
-
+    await this.props.signUp({
+      name: this.state.name,
+      email: this.state.email,
+      age: this.state.age,
+      contactNumber: this.state.contactNumber,
+      password: this.state.password,
+      address:this.state.address,
+      city:this.state.city,
+      state:this.state.state,
+      diseases:this.state.disease,
+      interests:this.state.interests,
+    });
+    this.setState({
+      name:"",
+      email:"",
+      age:"",
+      contactNumber:"",
+      password:"",
+      address:"",
+      city:"",
+      state:"",
+      diseases:"",
+      interests:"",
+    });
   };
 
   render() {
@@ -208,4 +232,11 @@ class signUp extends Component {
   }
 }
 
-export default signUp;
+const mapStateToProps = (p) => {
+  return p.users;
+};
+
+export default connect(
+  mapStateToProps,
+  {Signup }
+)(signUp);

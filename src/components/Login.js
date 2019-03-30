@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
-
+import {connect} from "react-redux";
+import {logIn} from "../actions/userActions";
 
 class Login extends Component {
   constructor(props) {
@@ -14,7 +15,18 @@ class Login extends Component {
 
   handleSubmit = async e => {
     e.preventDefault();
+    await this.props.logIn({
+      email: this.state.email,
+      contactNumber: this.state.contactNumber,
+      password: this.state.password,
+    });
+    this.setState({
+      email:"",
+      contactNumber:"",
+      password:"",
+    });
   };
+
   render() {
     return (
       <div className="app flex-row align-items-center">
@@ -95,4 +107,11 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = (p) => {
+  return p.users;
+};
+
+export default connect(
+  mapStateToProps,
+  {logIn }
+)(Login);
