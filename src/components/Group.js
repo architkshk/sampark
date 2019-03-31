@@ -47,7 +47,7 @@ class Group extends Component {
                   style={{fontSize:"30px", color:"#2F4E6F"}}>{this.state.data.name}</CardHeader>
                 <CardBody className="p-4">
                   <h4 style={{ color:"#006699"}}> Age Group</h4>
-                  <div>{this.state.data.age.greater} - {this.state.data.age.lesser} years</div>
+                  <div>{this.state.data.age.lesser} - {this.state.data.age.greater} years</div>
                   <hr/>
                   <h4 style={{ color:"#006699"}}>  Address</h4>
                   <div>{this.state.data.address}</div>
