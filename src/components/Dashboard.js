@@ -73,7 +73,7 @@ class Dashboard extends Component {
           <Col>
             <Card outline style={{ padding: "2px", marginBottom: "30px" }}>
               <CardHeader className="text-white" color="dark" style={{}}>
-                <div style={{ fontSize: "20px", color: "black" }}>
+                <div style={{ fontSize: "25px", color: "black" }}>
                   Notifications
                   <Badge pill color="danger">
                     2
@@ -169,14 +169,14 @@ class Dashboard extends Component {
                         fontFamily: "Times New Roman"
                       }}
                     >
-                      <div>{group.name}</div>
+                      <div style={{fontSize:"25px", color:"#303030"}}>{group.name}</div>
                       {/*
                       <div>{group.time.lesser} - {this.time.greater}</div>
 */}
-                      <div>{group.city}</div>
+                      <div style={{fontSize:"20px", color:"#303030"}}>{group.city}</div>
                     </CardBody>
                   </Link>
-                  <CardFooter>{this.props.groups.myGroups.filter(g=>g._id==group._id).length>0 ? <Button block color="disabled" round onClick={async ()=>{await axios.get(`http://localhost:5000/group/leave/${group._id}`, {headers: {Authorization: this.props.users.token } } ); this.props.myGroups(this.props.users.token)}}>
+                  <CardFooter>{this.props.groups.myGroups.filter(g=>g._id==group._id).length>0 ? <Button block color="danger" round onClick={async ()=>{await axios.get(`http://localhost:5000/group/leave/${group._id}`, {headers: {Authorization: this.props.users.token } } ); this.props.myGroups(this.props.users.token)}}>
                     Leave Group
                   </Button>: <Button block color="success" round onClick={async ()=>{await axios.get(`http://localhost:5000/group/join/${group._id}`, {headers: {Authorization: this.props.users.token } } ); this.props.myGroups(this.props.users.token)}}>
                     Join Group
@@ -208,14 +208,14 @@ class Dashboard extends Component {
                         fontFamily: "Times New Roman"
                       }}
                     >
-                      <div>{group.name}</div>
+                      <div style={{fontSize:"25px", color:"#303030"}}>{group.name}</div>
                       {/*
                       <div>{group.time.lesser} - {this.time.greater}</div>
 */}
-                      <div>{group.city}</div>
+                      <div style={{fontSize:"20px", color:"#303030"}}>{group.city}</div>
                     </CardBody>
                   </Link>
-                  <CardFooter>{this.props.groups.myGroups.filter(g=>g._id==group._id).length>0 ? <Button block color="disabled" round onClick={async ()=>{await axios.get(`http://localhost:5000/group/leave/${group._id}`, {headers: {Authorization: this.props.users.token } } ); this.props.myGroups(this.props.users.token)}}>
+                  <CardFooter>{this.props.groups.myGroups.filter(g=>g._id==group._id).length>0 ? <Button block color="danger" round onClick={async ()=>{await axios.get(`http://localhost:5000/group/leave/${group._id}`, {headers: {Authorization: this.props.users.token } } ); this.props.myGroups(this.props.users.token)}}>
                     Leave Group
                   </Button>: <Button block color="success" round onClick={async ()=>{await axios.get(`http://localhost:5000/group/join/${group._id}`, {headers: {Authorization: this.props.users.token } } ); this.props.myGroups(this.props.users.token)}}>
                     Join Group

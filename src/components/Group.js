@@ -42,31 +42,39 @@ class Group extends Component {
           <Row className="justify-content-center font-weight-bold">
             <Col md="9" lg="7" xl="6" style={{ marginTop: "5%" }}>
               <Card className="mx-8">
-                <CardHeader className="text-center">{this.state.data.name}</CardHeader>
+                <CardHeader
+                  className="text-center"
+                  style={{fontSize:"30px", color:"#2F4E6F"}}>{this.state.data.name}</CardHeader>
                 <CardBody className="p-4">
-                  <h3> Age Group</h3>
-                  <p>{this.state.data.age.greater}-{this.state.data.age.lesser}years</p>
-                  <h3> Address</h3>
-                  <p>{this.state.data.address}</p>
+                  <h4 style={{ color:"#006699"}}> Age Group</h4>
+                  <div>{this.state.data.age.greater} - {this.state.data.age.lesser} years</div>
+                  <hr/>
+                  <h4 style={{ color:"#006699"}}>  Address</h4>
+                  <div>{this.state.data.address}</div>
+                  <hr/>
                   <Row>
                     <Col>
-                      <h3> City</h3>
-                      <p>{this.state.data.city}</p>
+                      <h4 style={{ color:"#006699"}}>  City</h4>
+                      <div>{this.state.data.city}</div>
                     </Col>
                     <Col>
-                      <h3> State</h3>
-                      <p>{this.state.data.state}</p>
+                      <h4 style={{ color:"#006699"}}>  State</h4>
+                      <div>{this.state.data.state}</div>
                     </Col>
                   </Row>
-                  <h3> Disease Type</h3>
-                  <p>{this.state.data.diseases}</p>
-                  <h3> Group time</h3>
-                  <p>{this.state.data.time.start}- {this.state.data.time.end}</p>
-                  <h3> Description</h3>
-                  <p>{this.state.data.description}</p>
+                  <hr/>
+                  <h4 style={{ color:"#006699"}}>  Disease Type</h4>
+                  <div>{this.state.data.diseases}</div>
+                  <hr/>
+                  <h4 style={{ color:"#006699"}}>   Group time</h4>
+                  <div>{this.state.data.time.start} - {this.state.data.time.end}</div>
+                  <hr/>
+                  <h4 style={{ color:"#006699"}}>  Description</h4>
+                  <div>{this.state.data.description}</div>
+                  <hr/>
                 </CardBody>
                 <CardFooter>
-                  {this.props.groups.myGroups.filter(g=>g._id==this.state.data._id).length>0 ? <Button block color="disabled" round onClick={async ()=>{await axios.get(`http://localhost:5000/group/leave/${this.state.data._id}`, {headers: {Authorization: this.props.users.token } } ); this.props.myGroups(this.props.users.token)}}>
+                  {this.props.groups.myGroups.filter(g=>g._id==this.state.data._id).length>0 ? <Button block color="danger" round onClick={async ()=>{await axios.get(`http://localhost:5000/group/leave/${this.state.data._id}`, {headers: {Authorization: this.props.users.token } } ); this.props.myGroups(this.props.users.token)}}>
                     Leave Group
                   </Button>: <Button block color="success" round onClick={async ()=>{await axios.get(`http://localhost:5000/group/join/${this.state.data._id}`, {headers: {Authorization: this.props.users.token } } ); this.props.myGroups(this.props.users.token)}}>
                     Join Group
