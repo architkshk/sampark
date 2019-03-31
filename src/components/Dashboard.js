@@ -137,11 +137,11 @@ class Dashboard extends Component {
             <Form inline>
               <FormGroup>
                 <Label>Age Group</Label>
-                <Input type="select" name="Age">
+                <Input type="select" name="age">
                   <option>---</option>
-                  <option>50-60years</option>
-                  <option>60-70years</option>
-                  <option>70 above</option>
+                  <option>50-60</option>
+                  <option>61-70</option>
+                  <option>70-above</option>
                 </Input>
               </FormGroup>
               <FormGroup>

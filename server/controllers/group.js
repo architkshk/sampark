@@ -136,6 +136,7 @@ module.exports = {
         res.status(400).send(e);
       });
   },
+
   recommend: async (req, res) => {
     let a = await akin.run();
     let b = await akin.recommendation.getAllRecommendationsForUser(
@@ -143,7 +144,23 @@ module.exports = {
     );
     res.send(b);
   },
+
   filter: async (req, res) => {
+    let { query } = req.query;
+    let filter = {};
+    if (query.age) {
+      query.age = query.age.split("-");
+      filter["age"] = {
+        $gt: query.age[0],
+        $lt: query.age[1] == "above" ? 1000 : query.age[1]
+      };
+    }
+    if (query.disease) {
+      filter["disease"] = query.disease;
+    }
+    if (query.activity) {
+      filter["activity"] = query.activity;
+    }
     Group.find(req.query).then(groups => res.send(groups));
   }
 };
