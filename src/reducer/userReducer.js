@@ -21,13 +21,13 @@ export default (state = initialState , action) => {
         user:action.payload.user,
         loggedIn: true,
       };
-    // case LOGOUT:
-    //   return{
-    //     ...state,
-    //     token:"",
-    //     loggedIn:false,
-    //     user:[]
-    //   };
+
+     case LOGOUT:
+       return{
+         token:"",
+         loggedIn:false,
+         user:[]
+      };
     default:
       return state;
   }

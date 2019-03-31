@@ -5,7 +5,7 @@ import {SIGNUP,LOGIN,LOGOUT} from "./types";
 export const Signup = account => async dispatch => {
   console.log(account);
   let data = await axios.post("http://localhost:5000/auth/signup", account);
-  console.log(data)
+  console.log(data);
   dispatch({
     type:SIGNUP,
     payload:data.data,
@@ -19,10 +19,10 @@ export const logIn = account => async dispatch => {
     payload:data.data,
   })
 };
-//
-// export const logOut =() => async dispatch => {
-//   dispatch({
-//     type:LOGOUT,
-//   })
-// };
+
+ export const logOut =() => async dispatch => {
+  dispatch({
+     type:LOGOUT,
+   })
+ };
 

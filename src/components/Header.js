@@ -15,7 +15,10 @@ import {
 
 import { AppHeaderDropdown } from "@coreui/react";
 
+import {logOut} from "../actions/userActions";
+
 import { connect } from "react-redux";
+import {myGroups} from "../actions/groupActions";
 
 class Header extends React.Component {
   constructor(props) {
@@ -123,7 +126,7 @@ class Header extends React.Component {
                       <Link to="/editProfile"> Edit Profile</Link>
                     </DropdownItem>
                     <DropdownItem>
-                      <Link to="/login"> Logout</Link>
+                      <a href="/login"> Logout</a>
                     </DropdownItem>
                   </DropdownMenu>
                 </AppHeaderDropdown>
@@ -140,4 +143,7 @@ const mapStateToProps = p => {
   return p.users;
 };
 
-export default connect(mapStateToProps)(Header);
+export default connect(
+  mapStateToProps,
+  {logOut}
+)(Header);
