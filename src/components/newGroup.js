@@ -4,8 +4,9 @@ import FormGroup from "reactstrap/es/FormGroup";
 import Label from "reactstrap/es/Label";
 import CardHeader from "reactstrap/es/CardHeader";
 import {connect} from "react-redux";
-import {addGroup } from "../actions/groupActions";
+import {addGroup,allGroup } from "../actions/groupActions";
 import {Redirect} from "react-router-dom";
+import axios from "axios";
 
 class newGroup extends Component {
   constructor(props) {
@@ -25,12 +26,21 @@ class newGroup extends Component {
       description:"",
       time:{
         start:"",
-        end:"",
-      }
+        end:""},
+      cities: [],
+      redirect:false,
+      states: []
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+
+  async componentDidMount() {
+    {this.props.allGroup()}
+    let states = await axios.get("http://localhost:5000/data/states");
+    states = states.data;
+    this.setState({ states });
+  }
 
   renderRedirect = () => {
     if (this.state.redirect) {
@@ -71,7 +81,8 @@ class newGroup extends Component {
       time:{
         start:"",
         end:"",
-      }
+      },
+      redirect:true
     });
   };
 
@@ -165,26 +176,58 @@ class newGroup extends Component {
                         <FormGroup>
                           <Label> State</Label>
                           <Input
-                            type="text"
-                            name="state"
-                            onChange={event=>
+                            type="select"
+                            placeholder="State"
+                            required
+                            value={this.state.state}
+                            onChange={async event => {
+                              let state = event.target.value;
+                              let { stateId } = this.state.states.filter(
+                                s => s.value === state
+                              )[0];
+                              let cities = await axios.get(
+                                `http://localhost:5000/data/cities/${stateId}`
+                              );
+                              cities = cities.data;
                               this.setState({
-                                state:event.target.value
-                              })}
-                            required />
+                                cities,
+                                state
+                              });
+                            }}
+                          >
+                            <option disabled>
+                              Select
+                            </option>
+
+                            {this.state.states.map(e => (
+                              <option>{e.value}</option>
+                            ))}
+                          </Input>
                         </FormGroup>
                       </Col>
                       <Col>
                         <FormGroup>
                           <Label> City</Label>
                           <Input
-                            type="text"
-                            name="city"
-                            onChange={event=>
+                            type="select"
+                            placeholder="City"
+                            onChange={event =>
                               this.setState({
-                                city:event.target.value
-                              })}
-                            required />
+                                city: event.target.value
+                              })
+                            }
+                            value={this.state.city}
+                            required
+                          >
+                            <option disabled>
+                              Select
+                            </option>
+                            {this.state.cities.map(e => (
+                              <option>
+                                {e.value}
+                              </option>
+                            ))}
+                          </Input>
                         </FormGroup>
                       </Col>
                     </Row>
@@ -265,7 +308,6 @@ class newGroup extends Component {
             </Col>
           </Row>
         </Container>
-        {console.log(this.props.groups.groups)}
         {this.renderRedirect()}
       </div>
     );
@@ -278,5 +320,5 @@ const mapStateToProps = (p) => {
 
 export default connect(
   mapStateToProps,
-  {addGroup }
+  {addGroup,allGroup }
 )(newGroup);

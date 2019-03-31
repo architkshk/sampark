@@ -33,7 +33,7 @@ module.exports = {
   returnAllGroups: async (req, res) => {
     try {
       let groups = await Group.find();
-      console.log("here");
+      console.log(groups);
       if (!groups) {
         return res.send({ groups: [] });
       }
@@ -76,6 +76,7 @@ module.exports = {
       group.members.push(req.user._id);
       group.save().then(async group => {
         await akin.activity.log(req.user.id, group.id);
+        akin.run();
         res.send(group);
       });
     } catch (e) {
@@ -106,14 +107,16 @@ module.exports = {
   },
 
   returnMyGroups: (req, res) => {
-    Group.find()
-      .then(group => {
-        var isInArray = group.members.filter(function(user) {
-          return user.equals(req.user.id);
-        });
-        res.send({ groups: isInArray });
+    console.log("hit 1")
+    Group.find({members: req.user._id})
+      .then(groups => {
+        console.log("hit 2")
+        console.log(groups)
+        res.send({ groups });
       })
       .catch(e => {
+        console.log("hit 3")
+
         res.status(400).send(e);
       });
   },
@@ -137,11 +140,13 @@ module.exports = {
       });
   },
   recommend: async (req, res) => {
-    let a = await akin.run();
+
     let b = await akin.recommendation.getAllRecommendationsForUser(
       req.user._id
     );
-    res.send(b);
+    b=b.recommendations.map(m=>ObjectID(m.item))
+    console.log("b ",b)
+    Group.find({_id: {$in:b} }).then(groups=> res.send(groups))
   },
   filter: async (req, res) => {
     Group.find(req.query).then(groups => res.send(groups));

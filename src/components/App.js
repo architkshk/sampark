@@ -29,7 +29,7 @@ class App extends React.Component {
             {this.props.loggedIn &&
             <>
               <Route exact path="/newGroup" component={newGroup} />
-              <Route exact path="/group" component={Group} />
+              <Route exact path="/group/:groupId" component={Group} />
               <Route exact path="/editProfile" component={EditProfile} />
               <Route exact path="/dashboard" component={Dashboard} />
               <Route exact path="/profile" component={Profile} />
