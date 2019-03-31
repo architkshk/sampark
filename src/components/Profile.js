@@ -15,7 +15,8 @@ import {
 
 import CardHeader from "reactstrap/es/CardHeader";
 import {connect} from "react-redux";
-import {logIn} from "../actions/userActions";
+import  {Link} from "react-router-dom";
+
 const recommendedGroups=[
   {
     name:"group1",
@@ -85,7 +86,7 @@ class Profile extends React.Component{
                 return(
                   <Col lg="4" md="6" sm="12">
                     <Card outline color="success" className="groupsCard" style={{padding:"2px", marginBottom:"30px"}}>
-                      <a href="./groups"> <CardBody
+                      <Link to="./groups"> <CardBody
                         className="font-weight-bolder text-center text-dark "
                         style={{fontSize:"20px", fontFamily:"Times New Roman"}}
                       >
@@ -98,7 +99,7 @@ class Profile extends React.Component{
                         <div>
                           {group.location}
                         </div>
-                      </CardBody></a>
+                      </CardBody></Link>
                       <CardFooter>
                         <Button block color="success" round>Leave Group</Button>
                       </CardFooter>

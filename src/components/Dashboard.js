@@ -7,7 +7,6 @@ import {
   CardFooter,
   CardHeader,
   Col,
-  Progress,
   Row,
   FormGroup,
   Label,
@@ -16,6 +15,8 @@ import {
 } from "reactstrap";
 import {connect} from "react-redux";
 import  {Link} from "react-router-dom";
+import {allGroup, myGroups, recommendGroups} from "../actions/groupActions";
+import axios from "axios";
 
 const notificationList = [
   {
@@ -26,42 +27,6 @@ const notificationList = [
   }
 ];
 
-const taskList = [
-  {
-    text: "task 1"
-  },
-  {
-    text: "task 2"
-  }
-];
-
-const recommendedGroups = [
-  {
-    name: "group1",
-    time: "5:50pm",
-    location: "delhi"
-  },
-  {
-    name: "group2",
-    time: "5:50pm",
-    location: "delhi"
-  },
-  {
-    name: "group3",
-    time: "5:50pm",
-    location: "delhi"
-  },
-  {
-    name: "group4",
-    time: "5:50pm",
-    location: "delhi"
-  },
-  {
-    name: "group5",
-    time: "5:50pm",
-    location: "delhi"
-  }
-];
 
 class Dashboard extends Component {
   constructor(props) {
@@ -73,8 +38,7 @@ class Dashboard extends Component {
       dropdownOpen: false,
       radioSelected: 2,
       notifications: notificationList,
-      pendingTask: taskList,
-      groups: recommendedGroups    // using fetchGroup from groupActions.js file logic commented
+      recommendedGroups: null    // using fetchGroup from groupActions.js file logic commented
     };
   }
 
@@ -89,14 +53,22 @@ class Dashboard extends Component {
       radioSelected: radioSelected
     });
   }
+  componentDidMount() {
+    this.props.allGroup()
+    this.props.myGroups(this.props.users.token)
+    this.props.recommendGroups(this.props.users.token)
+  }
+
   render() {
-    {console.log(this.props.user)}
+/*
+    {console.log(this.props.groups.allGroup)}
+*/
     return (
       <div
         className="animated fadeIn "
         style={{ marginLeft: "15%", marginRight: "15%", marginTop: "2%" }}
       >
-        <h1 className="font-weight-bold mb-4">Hello {this.props.user.name}!!</h1>
+        <h1 className="font-weight-bold mb-4">Hello {this.props.users.user.name}!!</h1>
         <Row>
           <Col>
             <Card outline style={{ padding: "2px", marginBottom: "30px" }}>
@@ -177,10 +149,11 @@ class Dashboard extends Component {
             </Form>
           </Col>
         </Row>
-        <h2 className="font-weight-bold my-4"> Recommended Groups</h2>
+        <h2 className="font-weight-bold my-4"> All Groups</h2>
 
         <Row>
-          {this.state.groups.map(group => {
+          {console.log(this.props.groups.allGroup)}
+          {this.props.groups.allGroup && this.props.groups.allGroup.map(group => {
             return (
               <Col lg="4" md="6" sm="12">
                 <Card
@@ -188,7 +161,7 @@ class Dashboard extends Component {
                   className="groupsCard"
                   style={{ padding: "2px", marginBottom: "30px" }}
                 >
-                  <Link to="./group">
+                  <Link to= {`/group/${group._id}`}>
                     <CardBody
                       className="font-weight-bolder text-center text-dark "
                       style={{
@@ -197,14 +170,57 @@ class Dashboard extends Component {
                       }}
                     >
                       <div>{group.name}</div>
-                      <div>{group.time}</div>
-                      <div>{group.location}</div>
+                      {/*
+                      <div>{group.time.lesser} - {this.time.greater}</div>
+*/}
+                      <div>{group.city}</div>
                     </CardBody>
                   </Link>
-                  <CardFooter>
-                    <Button block color="success" round>
-                      Join Group
-                    </Button>
+                  <CardFooter>{this.props.groups.myGroups.filter(g=>g._id==group._id).length>0 ? <Button block color="disabled" round onClick={async ()=>{await axios.get(`http://localhost:5000/group/leave/${group._id}`, {headers: {Authorization: this.props.users.token } } ); this.props.myGroups(this.props.users.token)}}>
+                    Leave Group
+                  </Button>: <Button block color="success" round onClick={async ()=>{await axios.get(`http://localhost:5000/group/join/${group._id}`, {headers: {Authorization: this.props.users.token } } ); this.props.myGroups(this.props.users.token)}}>
+                    Join Group
+                  </Button>}
+
+                  </CardFooter>
+                </Card>
+              </Col>
+            );
+          })}
+        </Row>
+        <h2 className="font-weight-bold my-4"> Recommended Groups</h2>
+
+        <Row>
+          {console.log(this.props.groups.recommendedGroups)}
+          {this.props.groups.recommendedGroups && this.props.groups.recommendedGroups.map(group => {
+            return (
+              <Col lg="4" md="6" sm="12">
+                <Card
+                  outline
+                  className="groupsCard"
+                  style={{ padding: "2px", marginBottom: "30px" }}
+                >
+                  <Link to= {`/group/${group._id}`}>
+                    <CardBody
+                      className="font-weight-bolder text-center text-dark "
+                      style={{
+                        fontSize: "20px",
+                        fontFamily: "Times New Roman"
+                      }}
+                    >
+                      <div>{group.name}</div>
+                      {/*
+                      <div>{group.time.lesser} - {this.time.greater}</div>
+*/}
+                      <div>{group.city}</div>
+                    </CardBody>
+                  </Link>
+                  <CardFooter>{this.props.groups.myGroups.filter(g=>g._id==group._id).length>0 ? <Button block color="disabled" round onClick={async ()=>{await axios.get(`http://localhost:5000/group/leave/${group._id}`, {headers: {Authorization: this.props.users.token } } ); this.props.myGroups(this.props.users.token)}}>
+                    Leave Group
+                  </Button>: <Button block color="success" round onClick={async ()=>{await axios.get(`http://localhost:5000/group/join/${group._id}`, {headers: {Authorization: this.props.users.token } } ); this.props.myGroups(this.props.users.token)}}>
+                    Join Group
+                  </Button>}
+
                   </CardFooter>
                 </Card>
               </Col>
@@ -248,10 +264,10 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = (p) => {
-  return p.users;
+  return p;
 };
 
 export default connect(
   mapStateToProps,
-  null
+  {allGroup, myGroups, recommendGroups}
 )(Dashboard);

@@ -126,8 +126,8 @@ class signUp extends Component {
                       </InputGroupAddon>
                       <Input
                         type="tek"
-                        pattern="[0-9]{12}"
-                        maxLength="12"
+                        pattern="[0-9]{10}"
+                        maxLength="10"
                         placeholder="Contact Number"
                         onChange={event =>
                           this.setState({

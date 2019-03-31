@@ -11,19 +11,13 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
-  CardImg
 } from "reactstrap";
 
 import {
-  AppAsideToggler,
   AppHeaderDropdown,
-  AppNavbarBrand,
-  AppSidebarToggler
 } from "@coreui/react";
 
-import NavDropdown from "reactstrap/es/NavDropdown";
 import { connect } from "react-redux";
-// import {logOut} from "../actions/userActions";
 
 class Header extends React.Component {
   constructor(props) {
@@ -96,7 +90,10 @@ class Header extends React.Component {
               >
                 <NavItem className="d-md-down-none">
                   <NavLink>
-                    <Link to="/" >Home</Link>
+                    <Link to="/"
+                          className="ml-auto font-weight-bold"
+                          style={{color:"rgba(255,255,255,.5) !important"}}
+                    >Home</Link>
                   </NavLink>
                 </NavItem>
                 <AppHeaderDropdown direction="down">
@@ -114,7 +111,7 @@ class Header extends React.Component {
                   <DropdownToggle nav>
                     Profile &nbsp;
                     <img
-                      src="http://www.pe tsworld.in/blog/wp-content/uploads/2014/09/cute-kittens.jpg"
+                      src="http://www.petsworld.in/blog/wp-content/uploads/2014/09/cute-kittens.jpg"
                       className="rounded-circle"
                       style={{ height: "40px", width: "40px" }}
                     />
