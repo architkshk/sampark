@@ -89,12 +89,11 @@ class Header extends React.Component {
                 style={{ fontSize: "25px" }}
               >
                 <NavItem className="d-md-down-none">
-                  <NavLink>
-                    <Link to="/"
-                          className="ml-auto font-weight-bold"
-                          style={{color:"rgba(255,255,255,.5) !important"}}
-                    >Home</Link>
-                  </NavLink>
+
+                    <NavLink href="/"
+                    >Home
+
+                    </NavLink>
                 </NavItem>
                 <AppHeaderDropdown direction="down">
                   <DropdownToggle nav>Groups</DropdownToggle>

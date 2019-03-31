@@ -72,7 +72,7 @@ class Login extends Component {
                       </InputGroupAddon>
                       <Input
                         type="password"
-                        placeholder="Password"
+                        placeholder="Pin"
                         onChange={event=>
                           this.setState({
                             password:event.target.value
