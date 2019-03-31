@@ -15,7 +15,7 @@ import {
 } from "reactstrap";
 import { Signup } from "../actions/userActions";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import axios from "axios";
 
 class signUp extends Component {
@@ -284,7 +284,7 @@ class signUp extends Component {
                       Create Account
                     </Button>
                   </Form>
-                  <a href="./login">Already have account? Log in.</a>
+                  <Link to="/login">Already have account? Log in.</Link>
                 </CardBody>
               </Card>
             </Col>

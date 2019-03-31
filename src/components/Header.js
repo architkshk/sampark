@@ -57,7 +57,7 @@ class Header extends React.Component {
                   navbar
                   style={{ fontSize: "25px" }}
                 >
-                  <NavLink href="/login">Login</NavLink>
+                  <NavLink><Link to="/login">Login</Link></NavLink>
                 </NavItem>
                 {"  "}
                 <NavItem
@@ -65,7 +65,7 @@ class Header extends React.Component {
                   navbar
                   style={{ fontSize: "25px" }}
                 >
-                  <NavLink href="/signup">SignUp</NavLink>
+                  <NavLink><Link to="/signup">SignUp</Link></NavLink>
                 </NavItem>
               </Nav>
             </Collapse>

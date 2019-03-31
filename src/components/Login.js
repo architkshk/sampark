@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Card, CardBody, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import {connect} from "react-redux";
 import {logIn} from "../actions/userActions";
-import {Redirect} from "react-router-dom";
+import {Redirect, Link} from "react-router-dom";
 
 class Login extends Component {
   constructor(props) {
@@ -87,9 +87,9 @@ class Login extends Component {
                       Login
                     </Button>
                   </Form>
-                  <a href="./signup">
+                  <Link to="/signup">
                     Create a new Account
-                  </a>
+                  </Link>
                 </CardBody>
               </Card>
             </Col>

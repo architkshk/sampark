@@ -107,15 +107,15 @@ module.exports = {
   },
 
   returnMyGroups: (req, res) => {
-    console.log("hit 1")
-    Group.find({members: req.user._id})
+    console.log("hit 1");
+    Group.find({ members: req.user._id })
       .then(groups => {
-        console.log("hit 2")
-        console.log(groups)
+        console.log("hit 2");
+        console.log(groups);
         res.send({ groups });
       })
       .catch(e => {
-        console.log("hit 3")
+        console.log("hit 3");
 
         res.status(400).send(e);
       });
@@ -141,13 +141,12 @@ module.exports = {
   },
 
   recommend: async (req, res) => {
-
     let b = await akin.recommendation.getAllRecommendationsForUser(
       req.user._id
     );
-    b=b.recommendations.map(m=>ObjectID(m.item))
-    console.log("b ",b)
-    Group.find({_id: {$in:b} }).then(groups=> res.send(groups))
+    b = b.recommendations.map(m => ObjectID(m.item));
+    console.log("b ", b);
+    Group.find({ _id: { $in: b } }).then(groups => res.send(groups));
   },
 
   filter: async (req, res) => {
@@ -166,6 +165,6 @@ module.exports = {
     if (query.activity) {
       filter["activity"] = query.activity;
     }
-    Group.find(req.query).then(groups => res.send(groups));
+    Group.find(filter).then(groups => res.send(groups));
   }
 };
