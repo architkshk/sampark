@@ -10,12 +10,10 @@ import {
   NavLink,
   DropdownItem,
   DropdownMenu,
-  DropdownToggle,
+  DropdownToggle
 } from "reactstrap";
 
-import {
-  AppHeaderDropdown,
-} from "@coreui/react";
+import { AppHeaderDropdown } from "@coreui/react";
 
 import { connect } from "react-redux";
 
@@ -57,7 +55,9 @@ class Header extends React.Component {
                   navbar
                   style={{ fontSize: "25px" }}
                 >
-                  <NavLink><Link to="/login">Login</Link></NavLink>
+                  <NavLink>
+                    <Link to="/login">Login</Link>
+                  </NavLink>
                 </NavItem>
                 {"  "}
                 <NavItem
@@ -65,7 +65,9 @@ class Header extends React.Component {
                   navbar
                   style={{ fontSize: "25px" }}
                 >
-                  <NavLink><Link to="/signup">SignUp</Link></NavLink>
+                  <NavLink>
+                    <Link to="/signup">SignUp</Link>
+                  </NavLink>
                 </NavItem>
               </Nav>
             </Collapse>
@@ -89,11 +91,9 @@ class Header extends React.Component {
                 style={{ fontSize: "25px" }}
               >
                 <NavItem className="d-md-down-none">
-
-                    <NavLink href="/"
-                    >Home
-
-                    </NavLink>
+                  <NavLink>
+                    <Link to="/">Home</Link>
+                  </NavLink>
                 </NavItem>
                 <AppHeaderDropdown direction="down">
                   <DropdownToggle nav>Groups</DropdownToggle>
