@@ -16,6 +16,6 @@ router
   .route("group/delete/:id")
   .delete(passportJWT, GroupController.deleteGroup);
 router.route("/groups/recommend").get(passportJWT, GroupController.recommend);
-router.route("/groups/filter").get(GroupController.filter)
+router.route("/groups/filter").get(GroupController.filter);
 
 module.exports = router;

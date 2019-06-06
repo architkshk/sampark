@@ -61,7 +61,9 @@ class Profile extends React.Component{
         <Card style={{padding:"2px", marginBottom:"10px"}}>
           <CardHeader className=" text-black-50 font-weight-bolder" style={{fontSize:"25px"}}>
             Intro
-            <Button href="editProfile" color="primary" style={{float:"right"}} round> Edit Profile</Button>
+            <Link to="editProfile">
+            <Button color="primary" style={{float:"right"}} round> Edit Profile</Button>
+            </Link>
           </CardHeader>
           <CardBody className="text-center">
             <CardImg
