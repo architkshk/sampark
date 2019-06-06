@@ -33,7 +33,7 @@ module.exports = {
   returnAllGroups: async (req, res) => {
     try {
       let groups = await Group.find();
-      console.log(groups);
+      //console.log(groups);
       if (!groups) {
         return res.send({ groups: [] });
       }
@@ -150,20 +150,22 @@ module.exports = {
   },
 
   filter: async (req, res) => {
-    let { query } = req.query;
+    let query  = req.query;
     let filter = {};
-    if (query.age) {
+    if (query.age!=="") {
       query.age = query.age.split("-");
       filter["age"] = {
         $gt: query.age[0],
-        $lt: query.age[1] == "above" ? 1000 : query.age[1]
+        $lt: query.age[1] === ("above" ? 1000 : query.age[1]),
       };
     }
-    if (query.disease) {
-      filter["disease"] = query.disease;
+    if (query.state!=="") {
+      console.log(query.state);
+      filter["state"] = query.state;
     }
-    if (query.activity) {
-      filter["activity"] = query.activity;
+    if (query.city!=="") {
+      console.log(query.city);
+      filter["city"] = query.city;
     }
     Group.find(filter).then(groups => res.send(groups));
   }

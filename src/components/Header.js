@@ -23,12 +23,12 @@ import {myGroups} from "../actions/groupActions";
 class Header extends React.Component {
   constructor(props) {
     super(props);
-
-    this.toggle = this.toggle.bind(this);
     this.state = {
       isOpen: false,
       left: false
     };
+    this.toggle = this.toggle.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
   toggle(e) {
@@ -36,6 +36,10 @@ class Header extends React.Component {
       [e]: !prevState[e]
     }));
   }
+
+  handleLogout=()=>{
+    this.props.logOut();
+  };
 
   render() {
     return (
@@ -54,22 +58,20 @@ class Header extends React.Component {
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
                 <NavItem
-                  className="ml-auto text-black-50 font-weight-bold"
                   navbar
                   style={{ fontSize: "25px" }}
                 >
                   <NavLink>
-                    <Link to="/login">Login</Link>
+                    <Link to="/login" className="ml-auto text-white-50 font-weight-bold">Login</Link>
                   </NavLink>
                 </NavItem>
                 {"  "}
                 <NavItem
-                  className="ml-auto text-black-50 font-weight-bold"
                   navbar
                   style={{ fontSize: "25px" }}
                 >
                   <NavLink>
-                    <Link to="/signup">SignUp</Link>
+                    <Link to="/signup" className="ml-auto text-white-50 font-weight-bold">SignUp</Link>
                   </NavLink>
                 </NavItem>
               </Nav>
@@ -83,9 +85,11 @@ class Header extends React.Component {
             expand="lg"
             className="ml-auto text-black-50 font-weight-bold"
           >
-            <NavbarBrand href="/" style={{ fontSize: "30px" }}>
+            <Link to="/" className="text-white font-weight-bold">
+            <NavbarBrand style={{ fontSize: "30px" }}>
               Sampark
             </NavbarBrand>
+            </Link>
             <NavbarToggler onClick={() => this.toggle("isOpen")} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav
@@ -93,9 +97,9 @@ class Header extends React.Component {
                 navbar
                 style={{ fontSize: "25px" }}
               >
-                <NavItem className="d-md-down-none">
+                <NavItem >
                   <NavLink>
-                    <Link to="/">Home</Link>
+                    <Link to="/" className="ml-auto text-white-50 font-weight-bold">Home</Link>
                   </NavLink>
                 </NavItem>
                 <AppHeaderDropdown direction="down">
@@ -126,7 +130,7 @@ class Header extends React.Component {
                       <Link to="/editProfile"> Edit Profile</Link>
                     </DropdownItem>
                     <DropdownItem>
-                      <a href="/login"> Logout</a>
+                      <Link to="login" onClick={this.handleLogout}> Logout</Link>
                     </DropdownItem>
                   </DropdownMenu>
                 </AppHeaderDropdown>

@@ -1,10 +1,11 @@
-import {ADD_GROUP,ALL_GROUP, MY_GROUPS, RECOMMENDED_GROUPS} from "../actions/types";
+import {ADD_GROUP,ALL_GROUP, MY_GROUPS, RECOMMENDED_GROUPS,FILTERED_GROUPS} from "../actions/types";
 
 const initialState={
   createdGroup:[],
   allGroup:[],
   myGroups:[],
-  recommendedGroups: []
+  recommendedGroups: [],
+  filteredGroups: [],
 };
 
 export default function(state=initialState, action) {
@@ -29,7 +30,11 @@ export default function(state=initialState, action) {
         ...state,
         recommendedGroups:action.payload
       };
-
+    case FILTERED_GROUPS:
+      return{
+        ...state,
+        filteredGroups: action.payload
+      };
     default:
       return state;
   }
